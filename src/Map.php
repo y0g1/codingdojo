@@ -6,19 +6,29 @@ class Map
 
     protected $map = array();
 
-    public function __construct() {
 
+    private $randomDescriptions =[
+        'Forest',
+        'House',
+        'Field',
+        'Road',
+        'Beach',
+        'Castle'
+    ];
 
-        for($x=-5; $x <= 5; $x++) {
+    public function __construct()
+    {
+        for ($x=-5; $x <= 5; $x++) {
             $map[$x] = array();
-            for($y=-5; $y <= 5; $y++) {
-                $map[$x][$y] = new MapLocation();
+            for ($y=-5; $y <= 5; $y++) {
+                $map[$x][$y] = new MapLocation($this->randomDescriptions[rand(0,count($this->randomDescriptions) - 1)]);
             }
         }
 
     }
 
-    public function getDescription($x, $y) {
+    public function getDescription($x, $y)
+    {
         $this->map[$x][$y]->getDescription();
     }
 

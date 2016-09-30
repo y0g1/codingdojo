@@ -6,30 +6,24 @@
  * Time: 10:53
  */
 
-class InteractionInterface 
+class InteractionInterface
 {
     protected $positionX = 0;
     protected $positionY = 0;
+    private $map;
 
 
-    public function lookUp()
+    public function __construct(Map $map)
     {
-
+        $this->map = $map;
     }
 
-    public function lookDown()
+    public function look()
     {
-
-    }
-
-    public function lookLeft()
-    {
-
-    }
-
-    public function lookRight()
-    {
-
+        return $this->map->getDescription(
+            $this->positionX,
+            $this->positionY
+        );
     }
 
     public function goEast()
