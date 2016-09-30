@@ -3,6 +3,7 @@
 require('src/InteractionInterface.php');
 require('src/Map.php');
 require('src/MapLocation.php');
+require('src/Game.php');
 
 
 class InteractionInterfaceTest extends \PHPUnit_Framework_TestCase
@@ -68,6 +69,34 @@ class InteractionInterfaceTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($whereAmI, $ii->look());
     }
+    
+    public function testCliInterfaceEast() {
+        $east = new InteractionInterface(new Map());
+        
+        $result = $east->cliInterface('go East');
+        $this->assertEquals($result, 'You walked east');
+    }
+    
+    public function testCliInterfaceWest() {
+        $east = new InteractionInterface(new Map());
+        
+        $result = $east->cliInterface('go West');
+        $this->assertEquals($result, 'You walked west');
+    }
+    
+    public function testCliInterfaceNorth() {
+        $east = new InteractionInterface(new Map());
+        
+        $result = $east->cliInterface('go North');
+        $this->assertEquals($result, 'You walked north');
+    }
+    
+    public function testCliInterfaceSouth() {
+        $east = new InteractionInterface(new Map());
+        
+        $result = $east->cliInterface('go South');
+        $this->assertEquals($result, 'You walked south');
+    }
 
     public function testCanLook()
     {
@@ -84,6 +113,30 @@ class InteractionInterfaceTest extends \PHPUnit_Framework_TestCase
                 'Castle')));
 
 
+    }
+    
+    public function testGetDescription() {
+        $map = new Map();
+        $map->updateField(2, 1, 'Magic forest');
+        $this->assertEquals($map->getDescription(2, 1), 'Magic forest');
+    }
+    
+    
+    public function testGameOver() {
+//        $map = new Map();
+//        $interface = new InteractionInterface($map);
+        $game = new Game();
+        $game->execute('go east');
+        $game->execute('go east');
+        $game->execute('go east');
+        $game->execute('go east');
+        $game->execute('go east');
+        $game->execute('go east');
+        $this->assertEquals($game->execute('look'), 'You died');
+//        $this->assertEquals($interface->goEast(), 'You died');
+//        $this->assertEquals($interface->goNorth(), 'You died');
+//        $this->assertEquals($interface->goSouth(), 'You died');
+//        $this->assertEquals($interface->goWest(), 'You died');
     }
 }
 
