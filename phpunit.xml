@@ -1,0 +1,7 @@
+<phpunit colors="true">
+    <testsuites>
+        <testsuite name="cli">
+            <file>tests/InteractionInterfaceTest.php</file>
+        </testsuite>
+    </testsuites>
+</phpunit>
