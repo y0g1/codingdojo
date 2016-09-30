@@ -1,13 +1,14 @@
 <?php
 
-require('InteractionInterface.php');
-require('Map.php');
-require('MapLocation.php');
+require_once('InteractionInterface.php');
+require_once('Map.php');
+require_once('MapLocation.php');
 
 class Game
 {
     private $map;
     private $interface;
+    private $isAlive = true;
 
     public function __construct()
     {
@@ -16,7 +17,14 @@ class Game
     }
     
     public function execute($action) {
-        return $this->interface->cliInterface($action);
+        if($this->isAlive){
+            try{
+                return $this->interface->cliInterface($action);       
+            } catch (Exception $ex) {
+                $this->isAlive = false;
+            }
+        }
+        return 'You died';
     }
 
     public function getMap()

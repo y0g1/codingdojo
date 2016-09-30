@@ -14,7 +14,7 @@ class InteractionInterface
 
     public function cliInterface($action) {
 
-        switch ($action) {
+        switch (strtolower($action)) {
             case 'go east' :
                 return $this->goEast();
                 break;
@@ -58,24 +58,28 @@ class InteractionInterface
     public function goEast()
     {
         $this->positionX--;
+        $this->_isPositionOK();
         return 'You walked east';
     }
 
     public function goWest()
     {
         $this->positionX++;
+        $this->_isPositionOK();
         return 'You walked west';
     }
 
     public function goNorth()
     {
         $this->positionY++;
+        $this->_isPositionOK();
         return 'You walked north';
     }
 
     public function goSouth()
     {
         $this->positionY--;
+        $this->_isPositionOK();
         return 'You walked south';
     }
 
@@ -84,5 +88,9 @@ class InteractionInterface
         return array($this->positionX, $this->positionY);
     }
 
-
+    private function _isPositionOK(){
+        if(!isset($this->map->getMap()[$this->positionX][$this->positionY])){
+            throw new Exception();              
+        }
+    }
 }

@@ -26,10 +26,18 @@ class Map
         }
 
     }
+    
+    public function updateField($x, $y, $description){
+        $this->map[$x][$y]->setDescription($description);
+    }
 
     public function getDescription($x, $y)
     {
         return $this->map[$x][$y]->getDescription();
+    }
+    
+    public function getMap(){
+        return $this->map;
     }
 
 }
